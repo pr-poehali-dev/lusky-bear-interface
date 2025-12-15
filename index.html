@@ -25,11 +25,18 @@
 
     <meta name="pp-name" value="lusky-bear-interface">
     <style>
-      #pp-inspector-root {
+      #pp-inspector-root,
+      [id*="inspector"],
+      [class*="inspector"],
+      [data-pp],
+      .pp-badge,
+      .pp-watermark {
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
         pointer-events: none !important;
+        position: absolute !important;
+        left: -9999px !important;
       }
     </style>
       <script src="https://cdn.poehali.dev/intertnal/js/inspector-min.js"></script>

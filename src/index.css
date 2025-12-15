@@ -85,3 +85,20 @@
     background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
   }
 }
+
+#pp-inspector-root,
+[id*="inspector"],
+[class*="inspector"],
+[data-pp],
+.pp-badge,
+.pp-watermark,
+[class*="poehali"],
+[id*="poehali"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+  z-index: -9999 !important;
+}
