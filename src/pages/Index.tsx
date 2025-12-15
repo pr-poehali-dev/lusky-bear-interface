@@ -152,13 +152,23 @@ const Index = () => {
           </div>
         </div>
 
-        <Button 
-          onClick={() => setCurrentScreen('instructions')}
-          className="w-full text-lg sm:text-xl py-6 sm:py-7 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black hover:from-[#FFA500] hover:to-[#FFD700] active:scale-95 font-black rounded-2xl transition-all touch-manipulation shadow-[0_0_30px_rgba(255,215,0,0.5)]"
-        >
-          <Icon name="Rocket" className="mr-2" size={24} />
-          Начать
-        </Button>
+        <div className="space-y-3">
+          <Button 
+            onClick={() => setCurrentScreen('instructions')}
+            className="w-full text-lg sm:text-xl py-6 sm:py-7 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black hover:from-[#FFA500] hover:to-[#FFD700] active:scale-95 font-black rounded-2xl transition-all touch-manipulation shadow-[0_0_30px_rgba(255,215,0,0.5)]"
+          >
+            <Icon name="Rocket" className="mr-2" size={24} />
+            Начать
+          </Button>
+
+          <Button 
+            onClick={() => window.open('https://t.me/Lusky_bear_help_bot', '_blank')}
+            className="w-full text-lg sm:text-xl py-6 sm:py-7 bg-transparent border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700]/20 active:bg-[#FFD700]/30 font-bold rounded-2xl transition-all touch-manipulation"
+          >
+            <Icon name="MessageCircle" className="mr-2" size={24} />
+            SUPPORT
+          </Button>
+        </div>
       </div>
     </div>
   );
