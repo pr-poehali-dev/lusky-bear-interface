@@ -79,10 +79,7 @@ const Index = () => {
           <Button 
             onClick={() => setCurrentScreen('instructions')}
             className="w-full text-lg sm:text-xl py-6 sm:py-7 bg-transparent border-2 border-[#06B6D4] text-[#06B6D4] hover:bg-[#06B6D4]/20 active:bg-[#06B6D4]/30 font-bold rounded-2xl transition-all touch-manipulation"
-          >
-            <Icon name="Users" className="mr-2" size={24} />
-            Реферальная система
-          </Button>
+          ></Button>
 
           <Button 
             onClick={() => setCurrentScreen('instructions')}
