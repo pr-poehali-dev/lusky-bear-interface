@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 
-type Screen = 'home' | 'instructions' | 'signals';
+type Screen = 'promo' | 'home' | 'instructions' | 'signals';
 
 interface Signal {
   id: number;
   multiplier: string;
 }
 
+const PROMO_CODE = 'CSERGAR45';
+
 const Index = () => {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('home');
+  const [currentScreen, setCurrentScreen] = useState<Screen>('promo');
+  const [promoInput, setPromoInput] = useState('');
+  const [promoError, setPromoError] = useState(false);
   const [currentSignal, setCurrentSignal] = useState<Signal | null>(null);
   const [countdown, setCountdown] = useState(60);
   const [isWaiting, setIsWaiting] = useState(false);
@@ -57,6 +62,83 @@ const Index = () => {
     setIsWaiting(true);
     setCountdown(60);
   };
+
+  const handlePromoSubmit = () => {
+    if (promoInput.toUpperCase() === PROMO_CODE) {
+      setCurrentScreen('home');
+      setPromoError(false);
+    } else {
+      setPromoError(true);
+      setTimeout(() => setPromoError(false), 2000);
+    }
+  };
+
+  const handlePromoKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handlePromoSubmit();
+    }
+  };
+
+  const PromoScreen = () => (
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-gradient-to-b from-purple-900 via-purple-800 to-slate-900">
+      <div className="text-center space-y-8 w-full max-w-md">
+        <div className="relative mb-8">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl leading-tight font-black tracking-tight text-[#FF00FF] drop-shadow-[0_0_30px_rgba(255,0,255,0.5)]">
+            LUSKY<br />BEAR
+          </h1>
+          <div className="mt-4 text-[#FFD700] text-sm sm:text-base font-semibold tracking-wider drop-shadow-[0_0_10px_rgba(255,215,0,0.5)]">
+            VIP СИГНАЛЫ
+          </div>
+        </div>
+
+        <Card className="p-6 sm:p-8 bg-black/60 border-2 border-[#FFD700] rounded-2xl shadow-[0_0_30px_rgba(255,215,0,0.3)]">
+          <div className="space-y-6">
+            <div className="text-center space-y-2">
+              <Icon name="Lock" className="mx-auto text-[#FFD700]" size={48} />
+              <h2 className="text-xl sm:text-2xl font-bold text-[#FFD700]">
+                Введите промо-код
+              </h2>
+              <p className="text-sm text-white/70">
+                Для доступа к VIP сигналам
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <Input
+                type="text"
+                placeholder="Введите код..."
+                value={promoInput}
+                onChange={(e) => setPromoInput(e.target.value)}
+                onKeyPress={handlePromoKeyPress}
+                className={`w-full text-center text-lg sm:text-xl py-6 bg-black/40 border-2 ${
+                  promoError ? 'border-red-500' : 'border-[#FFD700]/50'
+                } text-white placeholder:text-white/30 focus:border-[#FFD700] rounded-xl transition-all`}
+                autoFocus
+              />
+
+              {promoError && (
+                <div className="text-red-500 text-sm text-center animate-fade-in">
+                  ❌ Неверный промо-код
+                </div>
+              )}
+
+              <Button
+                onClick={handlePromoSubmit}
+                className="w-full text-lg sm:text-xl py-6 sm:py-7 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black hover:from-[#FFA500] hover:to-[#FFD700] active:scale-95 font-black rounded-2xl transition-all touch-manipulation shadow-[0_0_30px_rgba(255,215,0,0.5)]"
+              >
+                <Icon name="Unlock" className="mr-2" size={24} />
+                Войти
+              </Button>
+            </div>
+          </div>
+        </Card>
+
+        <p className="text-xs text-white/50">
+          Получите промо-код у администратора
+        </p>
+      </div>
+    </div>
+  );
 
   const HomeScreen = () => (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-gradient-to-b from-purple-900 via-purple-800 to-slate-900">
@@ -252,6 +334,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen select-none">
+      {currentScreen === 'promo' && <PromoScreen />}
       {currentScreen === 'home' && <HomeScreen />}
       {currentScreen === 'instructions' && <InstructionsScreen />}
       {currentScreen === 'signals' && <SignalsScreen />}
